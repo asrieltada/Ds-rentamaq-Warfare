@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h2 align="center">Listar Maquina</h2>
+<br>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Id Maquina sistema</th>
+      <th>Hangar</th>
+      <th>patente</th>
+      <th>Tipo de maquina </th>
+      <th>Fecha de compra</th>
+      <th>Estado de maquina</th>
+      <th>Ultima Mantencion</th>
+      <th>Tiempo de uso </th>
+      <th>Proxima mantencion </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <a role="button" class="btn btn-success" href="{% url 'Pagina_Base:Create_Machine' %}">Agregar</a>
+    <br>
+    <br>
+    {% for Machine in Machine_List %}
+            {% for Status in Status_List %}
+                {% if Machine.Status_Device == Status %}
+                    <div>
+                        <tr>
+                            <td  align="center">{{Machine.id }}</td> 
+                            <td  align="center">{{Machine.Machine_ID_Code }}</td> 
+                            <td  align="center">{{Machine.Patent }}</td>
+                            {% if Machine.Device_Type == "I"%}
+                            <td>Cargador Frontal </td>
+                            {% elif Machine.Device_Type == "N" %}
+                              <td>"Retro excavadora"</td>
+                            {% elif Machine.Device_Type == "G" %}
+                              <td> "Bulldozer" </td>
+                            {% elif Machine.Device_Type == "E" %}
+                              <td>"Camión tolva con gato" </td>
+                            {% elif Machine.Device_Type == "S" %}
+                              <td> "Tractor con guinche" </td>
+                            {% elif Machine.Device_Type == "C" %}
+                              <td>"Camión CUNA" </td>
+                            {% endif %}   
+                            <td  align="center">{{Machine.Date_Buy }}</td>
+                            {% if Status.Status_Machine_Code == "A"%}
+                              <td>Activo </td>
+                            {% elif Status.Status_Machine_Code == "R" %}
+                              <td>Reservado</td>
+                            {% elif Status.Status_Machine_Code == "S" %}
+                              <td> Servicio Tecnico </td>
+                            {% elif MStatus.Status_Machine_Code == "E" %}
+                              <td>De baja </td>
+                            {% endif %}   
+                            <td  align="center">{{Status.Date_Last_Maintenance }}</td>
+                            <td  align="center">{{Status.Time_Usage }}</td>
+                            <td  align="center">{{Status.Maintenance_Time_Program }}</td>
+                            <td>
+                              <a role="button" href="{% url 'Pagina_Base:Edit_Machine' Machine.id  %}" class='btn btn-warning'>Editar Maquina</a>
+                            </td>
+                            <td>
+                              <a role="button" href="{% url 'Pagina_Base:Edit_Machine_status' Machine.id  %}" class='btn btn-warning'>Editar Estado Maquina</a>
+                            </td>
+                            <td>  
+                              <a role="button" href="{% url 'Pagina_Base:Delete_Machine' Machine.id  %}" class='btn btn-danger'>Eliminar</a>
+                            </td>
+                          </tr>   
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+
+  </tbody>
+</table>
+
+
+
+{% endblock %}

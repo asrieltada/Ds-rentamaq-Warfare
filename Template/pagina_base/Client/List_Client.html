@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h2 align="center">Listar Cliente</h2>
+<br>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Codigo asociado</th>
+      <th>Nombre ddel cliente</th>
+      <th>Rut</th>
+      <th>direccion </th>
+      <th>Numero de contacto</th>
+      <th>Correo</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <a role="button" class="btn btn-success" href="{% url 'Pagina_Base:Create_Client' %}">Agregar Cliente</a>
+    <br>
+    <br>
+    {% for Client in Client_List %}
+    <tr>
+      <td>{{ Client.id }}</td>
+      <td>{{ Client.name }}</td>
+      <td>{{ Client.rut }}</td>
+      <td>{{ Client.direction }}</td>
+      <td>{{ Client.phone }}</td>
+      <td><a href="mailto:{{ Client.email }}">{{ Client.email }}</a></td>
+
+      <td>
+        <a role="button" href="{% url 'Pagina_Base:Edit_Client' Client.id  %}" class='btn btn-warning'>Editar Cliente</a>
+      </td>
+
+      <td>  
+        <a role="button" href="{% url 'Pagina_Base:Delete_Client' Client.id  %}" class='btn btn-danger'>Eliminar</a>
+      </td>
+    </tr>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+
+{% endblock %}

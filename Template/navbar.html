@@ -1,0 +1,78 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style ="background-color: #3c3d41!important;">
+  <img class="img-fluid img-thumbnail" href="{% url 'Pagina_Base:index'%}" src="{% static 'img/pws.png' %}" width="6%" height="6%" ></img>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+    {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Maquinas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+              <a class="dropdown-item" href="{% url 'Pagina_Base:List_Machine' %}">Listar Maquinas</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'Pagina_Base:Create_Machine' %}">Agregar Maquinas</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Clientes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+              <a class="dropdown-item" href="{% url 'Pagina_Base:List_Client' %}">Listar Cliente</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'Pagina_Base:Create_Client' %}">Ingresar Cliente</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Renta
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+              <a class="dropdown-item" href="{% url 'Pagina_Base:List_Rent' %}">Listar Rentas</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'Pagina_Base:Rent_Machine' %}">Agregar Renta </a>
+            </div>
+          </li>
+        {% else %}
+
+    {% endif %}  
+
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+
+                    
+        {% if user.is_authenticated %}
+        <li class="navbar-item">
+            <a href="{% url 'user:Profile' %}" class="nav-link">
+                <span class="fa fa-user"></span>
+                Mi Perfil</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{% url 'user:ChangePassword' %}" class="nav-link">
+                <span class="fa fa-user"></span>
+                Cambiar Contraseña</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{% url 'user:logout' %}" class="nav-link">
+                <span class="fa fa-sign-in-alt"></span>
+                Cerrar Sesión</a>
+        </li>
+        {% else %}
+            <li class="navbar-item">
+                <a href="{% url 'user:login' %}" class="nav-link">
+                    <span class="fa fa-user"></span> 
+                    Iniciar Sesión</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'user:register' %}" class="nav-link ">
+                    <span class="fa fa-user-plus"></span>
+                    Registro </a>
+            </li>
+        {% endif %}
+
+  </div>
+</nav>

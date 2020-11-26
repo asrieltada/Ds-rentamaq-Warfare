@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }} 
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h2 align="center">Ingresar Cliente</h2>
+<br>
+
+<form  method="POST" enctype="multipart/form-data">
+    <table class="table table-dark" align="center" text-align="center" >
+        <tbody>
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <tr>
+                        <td  align="center">{{field.label_tag}}</td> 
+                        <td  align="center">{{field|as_crispy_field }}</td>
+                    </tr>   
+                </div>
+                
+                                
+            {% endfor %}
+        </tbody>
+    </table>
+    <div align="center"><button class="btn btn-primary"  type="submit">Guardar cambios</button></div>
+    <br>
+</form>
+
+
+{% endblock %}

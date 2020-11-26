@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<table class="table table-dark">
+<br>
+  <thead>
+    <tr ><h2 align="center">Perfil de usuario</h2> </tr>
+  </thead>
+  <tbody>
+    <br>
+        <tr>
+          <td>Nombre de Usuario : </td>
+          <td>{{ Userr.username}}</td>
+        </tr>
+        <tr>
+          <td>Nombre :</td>
+          <td>{{ Userr.first_name}}</td>
+        </tr>
+        <tr>
+          <td>Apellido : </td>
+          <td>{{ Userr.last_name}}</td>
+        </tr>
+        <tr>
+          <td>Email : </td>
+          <td>{{ Userr.email}}</td>
+        </tr>
+  </tbody>
+</table>
+<div align="center";><a role="button" class="btn btn-primary" href="{% url 'user:EditUser' %}">Editar Perfil</a></div>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+{% block body %}
+{% csrf_token %}
+<form class="" method="post">
+  {% csrf_token %}
+  ¿Estas seguro que quieres elimiminar esta Maquina?
+  <input type="submit" name="" value="submit">
+</form>
+{% endblock %}

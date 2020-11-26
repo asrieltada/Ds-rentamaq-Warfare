@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }} 
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h2 align="center">Editar Renta</h2>
+<br>
+
+<form  method="POST" enctype="multipart/form-data" novalidate>
+    <table class="table table-dark" align="center" text-align="center" >
+        <tbody>
+            
+            {% csrf_token %}
+            {% for field in form %}
+
+                <div>
+                    <tr>
+                        <td  align="center">{{field.label_tag}}</td> <td  align="center">{{field|as_crispy_field }}</td>
+                    </tr>   
+                </div>
+                
+                                
+            {% endfor %}
+  
+        </tbody>
+    </table>
+    <div align="center"><button class="btn btn-primary"  type="submit">Guardar cambios</button></div>
+    <br>
+</form>
+<table class="table table-dark" align="center" text-align="center" >
+    <tbody>
+        {% for Machine in Machine_List %}
+            {% for Status in Status_List %}
+                {% if Machine.Status_Device == Status %}
+                    <div>
+                        <tr>
+                            <td  align="center">{{Machine.id }}</td> 
+                            <td  align="center">{{Machine.Machine_ID_Code }}</td> 
+                            <td  align="center">{{Machine.Patent }}</td>
+                            <td  align="center">{{Machine.Device_Type}}</td> 
+                            <td  align="center">{{Machine.Date_Buy }}</td>
+                            <td  align="center">{{Status.Status_Machine_Code }}</td> 
+                            <td  align="center">{{Status.Date_Last_Maintenance }}</td>
+                            <td  align="center">{{Status.Time_Usage }}</td>
+                            <td  align="center">{{Status.Maintenance_Time_Program }}</td>
+                        </tr>   
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for Client in Client_List %}
+        <div>
+            <tr>
+                <td  align="center">{{Client.id}}</td> 
+                <td  align="center">{{Client.name }}</td>
+                <td  align="center">{{Client.rut}}</td> 
+                <td  align="center">{{Client.direction }}</td>
+                <td  align="center">{{Client.phone}}</td> 
+                <td  align="center">{{Client.email}}</td>
+            </tr>   
+        </div>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+{% endblock %}

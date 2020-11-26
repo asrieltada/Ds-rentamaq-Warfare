@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h2 align="center">Listar Rentas</h2>
+<br>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Codigo Reverva</th>
+      <th>Codigo Cliente</th>
+      <th>Nombre Cliente</th>
+      <th>Direccion</th>
+      <th>Correo </th>
+      <th>Id Maquina</th>
+      <th>Tipo de maquina</th>
+      <th>Estado de Maquina</th>
+      <th>Fecha de entrega </th>
+      <th>Tiempo de uso estimado</th>
+      <th>Fecha de devolucion</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <a role="button" class="btn btn-success" href="{% url 'Pagina_Base:Rent_Machine' %}">Agregar Renta</a>
+    <br>
+    <br>
+    {% for Rent in Rent_List %}
+    {% for Client in Client_List %}
+    {% if Rent.Client_ID_Code.id == Client.id %} 
+    {% for Machine in Machine_List %} 
+    {% if Rent.Machine_ID_Code.id == Machine.id %}    
+
+
+    <tr>
+      <td>{{ Rent.id }}</td>
+      <td>{{ Client.id }}</td>
+      <td>{{ Client.name }}</td>
+      <td>{{ Client.direction }}</td>
+      <td><a href="mailto:{{ Client.email }}">{{ Client.email }}</a></td>
+      <td>{{ Machine.id }}</td>
+      {% if Machine.Device_Type == "I"%}
+      <td>Cargador Frontal </td>
+      {% elif Machine.Device_Type == "N" %}
+        <td>"Retro excavadora"</td>
+      {% elif Machine.Device_Type == "G" %}
+        <td> "Bulldozer" </td>
+      {% elif Machine.Device_Type == "E" %}
+        <td>"Camión tolva con gato" </td>
+      {% elif Machine.Device_Type == "S" %}
+        <td> "Tractor con guinche" </td>
+      {% elif Machine.Device_Type == "C" %}
+        <td>"Camión CUNA" </td> 
+        
+      {% endif %}
+      {% if Machine.Status_Device.Status_Machine_Code == "A"%}
+        <td>Activo </td>
+      {% elif Machine.Status_Device.Status_Machine_Code == "R" %}
+        <td>Reservado</td>
+      {% elif Machine.Status_Device.Status_Machine_Code == "S" %}
+        <td> Servicio Tecnico </td>
+      {% elif Machine.Status_Device.Status_Machine_Code == "E" %}
+         <td>De baja </td>
+      {% endif %}                
+      <td>{{ Rent.Date_To_Rent }}</td>
+      <td>{{ Rent.Time_Usage }}</td>
+      <td>{{ Rent.Date_To_Return }}</td>  
+      <td>  
+        <a role="button" href="{% url 'Pagina_Base:Edit_Rent' Rent.id  %}" class='btn btn-warning'>Editar Renta</a>
+      </td>
+    </tr>
+
+
+    {% else  %}
+     {{Continue }}
+
+    {% endif %}
+    {% endfor %}
+    {% else  %}
+     {{Continue }}
+
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+        
+
+  </tbody>
+</table>
+
+
+
+{% endblock %}
